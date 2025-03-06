@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/ai-gpu-cloud/precache-manifest.4f66b6c3c332e2a8f24b71310d173f8b.js"
+  "/ai-gpu-cloud/precache-manifest.635d39e860fb082d05a2d036cf87ccbc.js"
 );
 
 self.addEventListener('message', (event) => {
