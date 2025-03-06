@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './App.css';
 
 function App() {
@@ -8,36 +8,42 @@ function App() {
 
   const handleRun = async () => {
     if (!file) return alert('Please upload a file');
-    const formData = new FormData();
-    formData.append('file', file);
-    const uploadRes = await fetch('https://your-fly-app.fly.dev/upload', {
+
+    // Upload the file
+    const uploadFormData = new FormData();
+    uploadFormData.append('file', file);
+    const uploadRes = await fetch('https://ai-gpu-backend.fly.dev/upload', {
       method: 'POST',
-      body: formData,
+      body: uploadFormData,
     });
     const { url } = await uploadRes.json();
-    const jobRes = await fetch('https://your-fly-app.fly.dev/run', {
+
+    // Run the job with form data
+    const runFormData = new FormData();
+    runFormData.append('fileUrl', url);
+    runFormData.append('gpu', 'A40');
+    const jobRes = await fetch('https://ai-gpu-backend.fly.dev/run', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ fileUrl: url, gpu: 'A40' }),
+      body: runFormData,
     });
     const { jobId } = await jobRes.json();
     setJobId(jobId);
     setStatus('queued');
   };
 
-  const checkStatus = async () => {
+  const checkStatus = useCallback(async () => {
     if (!jobId) return;
-    const res = await fetch(`https://your-fly-app.fly.dev/status/${jobId}`);
+    const res = await fetch(`https://ai-gpu-backend.fly.dev/status/${jobId}`);
     const { status } = await res.json();
     setStatus(status);
-  };
+  }, [jobId]); // jobId is the only dependency
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (jobId) {
       const interval = setInterval(checkStatus, 5000);
       return () => clearInterval(interval);
     }
-  }, [jobId]);
+  }, [jobId, checkStatus]);
 
   return (
     <div className="App">
@@ -50,7 +56,7 @@ function App() {
           <p>Job ID: {jobId}</p>
           <p>Status: {status}</p>
           {status === 'done' && (
-            <a href={`https://your-fly-app.fly.dev/download/${jobId}`}>Download Results</a>
+            <a href={`https://ai-gpu-backend.fly.dev/download/${jobId}`}>Download Results</a>
           )}
         </div>
       )}
