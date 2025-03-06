@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "902631f9b221ece3263f630c0f82422d",
+    "revision": "d8ff2961a3a2cbfdd6f4a036247bcabc",
     "url": "/ai-gpu-cloud/index.html"
   },
   {
-    "revision": "4cbd648ef3ecdfadf54c",
+    "revision": "b7aefe27c6a7977afd06",
     "url": "/ai-gpu-cloud/static/css/main.435d5fe5.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/ai-gpu-cloud/static/js/3.4508607e.chunk.js"
   },
   {
-    "revision": "4cbd648ef3ecdfadf54c",
-    "url": "/ai-gpu-cloud/static/js/main.4602c0d9.chunk.js"
+    "revision": "b7aefe27c6a7977afd06",
+    "url": "/ai-gpu-cloud/static/js/main.36374d33.chunk.js"
   },
   {
     "revision": "3d789a5fd99b60b7b10c",
